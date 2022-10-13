@@ -12,11 +12,11 @@
 
     <nav class="menu">
         <h2 align="center">Menu:</h2>
-        <a href="${pageContext.request.contextPath}/product/create">Create new person</a><br>
-        <a href="${pageContext.request.contextPath}/product/all">View all persons</a><br>
-        <a href="${pageContext.request.contextPath}/product/get">View person by ID</a><br>
-        <a href="${pageContext.request.contextPath}/product/update">Update person</a><br>
-        <a href="${pageContext.request.contextPath}/product/delete">Delete person</a><br>
+        <a href="${pageContext.request.contextPath}/product/create">Create new product</a><br>
+        <a href="${pageContext.request.contextPath}/product/all">View all products</a><br>
+        <a href="${pageContext.request.contextPath}/product/get">View product by ID</a><br>
+        <a href="${pageContext.request.contextPath}/product/update">Update product</a><br>
+        <a href="${pageContext.request.contextPath}/product/delete">Delete product</a><br>
 
     </nav>
 

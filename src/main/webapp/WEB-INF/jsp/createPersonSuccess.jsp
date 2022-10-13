@@ -22,6 +22,8 @@
     <span>Email:</span><span>${person.email}</span><br/>
 </div>
 <br>
-<a href="${pageContext.request.contextPath}/person/all">&#8592Back to all persons</a>
+<a href="${pageContext.request.contextPath}/person/all">&#8592 Back to all persons</a>
+<br>
+<a href="${pageContext.request.contextPath}/person">&#8592 Back to person control page </a>
 </body>
 </html>

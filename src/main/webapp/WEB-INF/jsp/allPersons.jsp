@@ -7,7 +7,7 @@
     <title>All persons</title>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/person">&#8592 Back to main menu</a>
+<a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
 <h1 align="center">All persons</h1>
 
 <div align="center">
