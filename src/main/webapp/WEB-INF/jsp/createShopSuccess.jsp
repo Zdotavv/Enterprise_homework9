@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Creating new shop success</title>
+    <style type="text/css">
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
+<div align="center">
+    <h2>Creating new shop success</h2>
+    <span>Name:</span><span>${shop.name}</span><br/>
+    <span>Address:</span><span>${shop.link}</span><br/>
+</div>
+    <br>
+    <a href="${pageContext.request.contextPath}/shop/all">&#8592Back to all shops</a>
+    <br>
+    <a href="${pageContext.request.contextPath}/shop">&#8592 Back to shop control page </a>
+</body>
+</html>
