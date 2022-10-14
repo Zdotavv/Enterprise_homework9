@@ -23,8 +23,8 @@
     </style>
 </head>
 <body>
-<div align="center">
     <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
+    <div align="center">
     <h2>Create new person</h2>
     <form:form action="create" method="post" modelAttribute="person">
         <form:label path="firstName">First Name:</form:label>
@@ -33,7 +33,7 @@
         <form:label path="lastName">Last Name:</form:label>
         <form:input required="required" path="lastName"/><br/>
 
-        <form:label path="email">Phone Number:</form:label>
+        <form:label path="email">Email:</form:label>
         <form:input required="required" path="email"/><br/>
 
         <form:button>Register</form:button>

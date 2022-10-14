@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.zdotavv.enterprise_homework6.converters.CartConverter.convertCartToCartDto;
 import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductDtoToProduct;
 
 @Service
@@ -32,7 +33,7 @@ public class CartServiceImpl implements CartService{
     public CartDto createCartByPersonId(Long idPerson) throws NotFoundException {
         Cart cart = new Cart(PersonConverter.convertPersonDtoToPerson(personService.getPersonById(idPerson)));
         personService.getPersonById(idPerson).getCarts().add(cart);
-        return CartConverter.convertCartToCartDto(cartRepository.save(cart));
+        return convertCartToCartDto(cartRepository.save(cart));
     }
 
 
@@ -44,7 +45,7 @@ public class CartServiceImpl implements CartService{
             cart.getProducts().add(product);
             cart.setSum(cart.getSum().add(BigDecimal.valueOf(productService.getById(cartDto.getIdProduct()).getPrice())));
             cartRepository.save(cart);
-            return CartConverter.convertCartToCartDto(cart);
+            return convertCartToCartDto(cart);
         } else {
             throw new NotFoundException("Cart with ID #" + cartDto.getIdCart() + " is not found");
         }
@@ -62,7 +63,7 @@ public class CartServiceImpl implements CartService{
                 cart.setSum(BigDecimal.valueOf(0.0));
             }
            cartRepository.save(cart);
-           return CartConverter.convertCartToCartDto(cart);
+           return convertCartToCartDto(cart);
         } else {
             throw new NotFoundException("Cart with ID #" + cartDto.getIdCart() + " is not found");
         }
@@ -83,19 +84,16 @@ public class CartServiceImpl implements CartService{
     @Override
     public List<CartDto> getAllCarts() {
         List<CartDto> cartDtoList = new ArrayList<>();
-        cartRepository.findAll().forEach(cart -> cartDtoList.add(CartConverter.convertCartToCartDto(cart)));
+        cartRepository.findAll().forEach(cart -> cartDtoList.add(convertCartToCartDto(cart)));
         return cartDtoList;
     }
 
     @Override
-    public CartDto getCartById(Long idCart) {
+    public CartDto getCartById(Long idCart) throws NotFoundException {
         if (cartRepository.findById(idCart).isPresent()) {
-            return CartConverter.convertCartToCartDto(cartRepository.findById(idCart).get());
-        }
-        try {
+            return convertCartToCartDto(cartRepository.findById(idCart).get());
+        } else {
             throw new NotFoundException("Cart with ID #" + idCart + " is not found");
-        } catch (NotFoundException e) {
-            throw new IllegalArgumentException(e);
         }
     }
 

@@ -16,7 +16,7 @@ public interface CartService {
 
     List<CartDto> getAllCarts();
 
-    CartDto getCartById(Long idCart);
+    CartDto getCartById(Long idCart) throws NotFoundException;
 
     Long removeCartById(Long idCart) throws NotFoundException;
 }

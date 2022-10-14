@@ -26,7 +26,8 @@
     <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
 <div align="center">
     <h2>Remove product from cart:</h2>
-    <%--@elvariable id="cartById" type="com.zdotavv.enterprise_homework6.dto.CartDto"--%>
+    <%--@elvariable id="cart" type="com.zdotavv.enterprise_homework6.dto.CartDto"--%>
+
     <form:form action="remove" method="put" modelAttribute="cart">
 
         <form:label path="idCart">Cart ID:</form:label>
