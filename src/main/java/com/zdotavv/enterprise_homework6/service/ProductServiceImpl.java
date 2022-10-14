@@ -1,10 +1,9 @@
 package com.zdotavv.enterprise_homework6.service;
 
-import com.zdotavv.enterprise_homework6.converters.ShopConverter;
-import com.zdotavv.enterprise_homework6.repository.ProductRepository;
 import com.zdotavv.enterprise_homework6.dto.ProductDto;
 import com.zdotavv.enterprise_homework6.exceptions.NotFoundException;
 import com.zdotavv.enterprise_homework6.model.Product;
+import com.zdotavv.enterprise_homework6.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductToProductDto;
+import static com.zdotavv.enterprise_homework6.converters.ShopConverter.convertShopDtoToShop;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -30,8 +30,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto createProduct(ProductDto productDto) throws NotFoundException {
         Product product = new Product(productDto.getName(),productDto.getPrice());
-        product.setShop(ShopConverter.convertShopDtoToShop(shopService.getShopById(productDto.getIdShop())));
+        product.setShop(convertShopDtoToShop(shopService.getShopById(productDto.getIdShop())));
         shopService.getShopById(productDto.getIdShop()).getProducts().add(product);
+        productRepository.save(product);
         return convertProductToProductDto(product);
     }
 
@@ -43,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
                     entity.setName(productDto.getName());
                     entity.setPrice(productDto.getPrice());
                     try {
-                        entity.setShop(ShopConverter.convertShopDtoToShop(shopService.getShopById(productDto.getIdShop())));
+                        entity.setShop(convertShopDtoToShop(shopService.getShopById(productDto.getIdShop())));
                     } catch (NotFoundException e) {
                         throw new RuntimeException(e);
                     }

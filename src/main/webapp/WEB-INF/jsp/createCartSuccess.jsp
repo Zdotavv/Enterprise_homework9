@@ -17,7 +17,7 @@
     <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
 <div align="center">
     <h2>Cart creation succeeded for person with id:</h2>
-    <span>ID:</span><span>${person.idCart}</span><br/>
+    <span>ID:</span><span>${person.idPerson}</span><br/>
 </div>
 <br>
     <br>

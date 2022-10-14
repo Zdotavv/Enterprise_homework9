@@ -42,7 +42,7 @@ public class CartController {
     }
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addProductView(Model model) {
-        model.addAttribute("product", new CartDto());
+        model.addAttribute("cart", new CartDto());
         return "addProductToCart";
     }
 

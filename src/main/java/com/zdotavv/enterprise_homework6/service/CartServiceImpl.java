@@ -2,17 +2,18 @@ package com.zdotavv.enterprise_homework6.service;
 
 import com.zdotavv.enterprise_homework6.converters.CartConverter;
 import com.zdotavv.enterprise_homework6.converters.PersonConverter;
-import com.zdotavv.enterprise_homework6.converters.ProductConverter;
 import com.zdotavv.enterprise_homework6.dto.CartDto;
-import com.zdotavv.enterprise_homework6.model.Product;
-import com.zdotavv.enterprise_homework6.repository.CartRepository;
 import com.zdotavv.enterprise_homework6.exceptions.NotFoundException;
 import com.zdotavv.enterprise_homework6.model.Cart;
+import com.zdotavv.enterprise_homework6.model.Product;
+import com.zdotavv.enterprise_homework6.repository.CartRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductDtoToProduct;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -38,7 +39,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public CartDto addProductByProductIdAndCartId(CartDto cartDto) throws NotFoundException {
         Cart cart = cartRepository.findById(cartDto.getIdCart()).get();
-        Product product = ProductConverter.convertProductDtoToProduct(productService.getById(cartDto.getIdProduct()));
+        Product product = convertProductDtoToProduct(productService.getById(cartDto.getIdProduct()));
         if (cartRepository.findById(cartDto.getIdCart()).isPresent()) {
             cart.getProducts().add(product);
             cart.setSum(cart.getSum().add(BigDecimal.valueOf(productService.getById(cartDto.getIdProduct()).getPrice())));
@@ -52,7 +53,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public CartDto removeProductByProductIdAndCartId(CartDto cartDto) throws NotFoundException {
         Cart cart = cartRepository.findById(cartDto.getIdCart()).get();
-        Product product = ProductConverter.convertProductDtoToProduct(productService.getById(cartDto.getIdProduct()));
+        Product product = convertProductDtoToProduct(productService.getById(cartDto.getIdProduct()));
         if (cartRepository.findById(cartDto.getIdCart()).isPresent()) {
             cart.getProducts().remove(product);
             if (cart.getSum().compareTo(new BigDecimal("0.0")) != 0) {

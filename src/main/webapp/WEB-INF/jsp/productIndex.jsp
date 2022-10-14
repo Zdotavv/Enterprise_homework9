@@ -6,7 +6,7 @@
     <title>Product control page</title>
 </head>
 <body>
-<a href="http://localhost:8080">&#8592 Back to start page menu</a>
+<a href="http://localhost:8080">&#8592 Back to main menu</a>
 <div align="center">
     <h1>${message}</h1>
 

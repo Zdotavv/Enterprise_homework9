@@ -30,6 +30,7 @@
                 <th>${cartById.person.email}</th>
             </tr>
         </table>
+        <br>
         <span>Products:</span><table border="1">
         <tr>
             <th>ID</th>
@@ -45,6 +46,7 @@
             <td><c:out value="${item.shop.getIdShop()}"/></td>
         </tr>
         </c:forEach>
+    </table>
 </div>
 <br>
 <a href="${pageContext.request.contextPath}/cart">&#8592 Back to cart control page </a>

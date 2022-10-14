@@ -14,9 +14,7 @@
     </style>
 </head>
 <body>
-<div align="center">
     <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
-</div>
 <div align="center">
     <h2>Creating new product success</h2>
     <span>Name:</span><span>${product.name}</span><br/>
@@ -24,7 +22,7 @@
     <span>Shop ID:</span><span>${product.idShop}</span><br/>
 </div>
 <br>
-<a href="${pageContext.request.contextPath}/product/all">&#8592Back to all products</a>
+<a href="${pageContext.request.contextPath}/product/all">&#8592 Back to all products</a>
 <br>
 <a href="${pageContext.request.contextPath}/product">&#8592 Back to product control page </a>
 </body>

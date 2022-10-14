@@ -31,11 +31,12 @@
         </tr>
         <c:forEach items="${shopById.products}" var="item">
         <tr>
-            <td><c:out value="${item.idShop}"/></td>
+            <td><c:out value="${item.idProduct}"/></td>
             <td><c:out value="${item.name}"/></td>
             <td><c:out value="${item.price}"/></td>
         </tr>
         </c:forEach>
+    </table>
 </div>
 <br>
 <a href="${pageContext.request.contextPath}/shop">&#8592 Back to shop control page </a>
