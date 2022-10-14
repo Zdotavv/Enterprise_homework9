@@ -11,6 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductDtoToProduct;
 import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductToProductDto;
 import static com.zdotavv.enterprise_homework6.converters.ShopConverter.convertShopDtoToShop;
 
@@ -56,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long idProduct) throws NotFoundException {
         if (productRepository.existsById(idProduct)) {
-            shopService.getShopById((productRepository.findById(idProduct).get()).getShop().getIdShop()).getProducts().remove(getById(idProduct));
+            shopService.getShopById((productRepository.findById(idProduct).get()).getShop().getIdShop()).getProducts().remove(convertProductDtoToProduct(getById(idProduct)));
             productRepository.deleteById(idProduct);
         } else {
             throw new NotFoundException("Product with ID #" + idProduct + " is not found");

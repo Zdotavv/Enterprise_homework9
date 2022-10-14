@@ -43,11 +43,7 @@ public class PersonServiceImpl implements PersonService {
     else {
         throw new NotFoundException("Person with ID #" + idPerson + " is not found");
     }
-//        try {
-//            throw new NotFoundException("Person with ID #" + idPerson + " is not found");
-//        } catch (NotFoundException e) {
-//            throw new IllegalArgumentException(e);
-//        }
+
     }
 
     @Override
