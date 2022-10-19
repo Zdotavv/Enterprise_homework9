@@ -1,16 +1,16 @@
 package com.zdotavv.enterprise_homework6.service;
 
-import com.zdotavv.enterprise_homework6.dto.ShopDto;
 import com.zdotavv.enterprise_homework6.exceptions.NotFoundException;
+import com.zdotavv.enterprise_homework6.model.Shop;
 
 import java.util.List;
 
 public interface ShopService {
-    ShopDto createShop(ShopDto shopDto);
+    Shop createShop(Shop shop);
 
     void deleteShop(Long idShop) throws NotFoundException;
 
-    ShopDto getShopById(Long idShop) throws NotFoundException;
+    Shop getShopById(Long idShop) throws NotFoundException;
 
-    List<ShopDto> getAllShops();
+    List<Shop> getAllShops();
 }

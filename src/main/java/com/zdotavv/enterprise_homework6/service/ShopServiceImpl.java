@@ -1,15 +1,11 @@
 package com.zdotavv.enterprise_homework6.service;
 
-import com.zdotavv.enterprise_homework6.converters.ShopConverter;
-import com.zdotavv.enterprise_homework6.repository.ShopRepository;
-import com.zdotavv.enterprise_homework6.dto.ShopDto;
 import com.zdotavv.enterprise_homework6.exceptions.NotFoundException;
+import com.zdotavv.enterprise_homework6.model.Shop;
+import com.zdotavv.enterprise_homework6.repository.ShopRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.zdotavv.enterprise_homework6.converters.ShopConverter.convertShopToShopDto;
 
 @Service
 public class ShopServiceImpl implements ShopService{
@@ -20,8 +16,8 @@ public class ShopServiceImpl implements ShopService{
     }
 
     @Override
-    public ShopDto createShop(ShopDto shopDto) {
-        return convertShopToShopDto(shopRepository.save(ShopConverter.convertShopDtoToShop(shopDto)));
+    public Shop createShop(Shop shop) {
+        return shopRepository.save(shop);
 
     }
 
@@ -35,18 +31,16 @@ public class ShopServiceImpl implements ShopService{
     }
 
     @Override
-    public ShopDto getShopById(Long idShop) throws NotFoundException {
+    public Shop getShopById(Long idShop) throws NotFoundException {
         if (shopRepository.findById(idShop).isPresent()) {
-            return convertShopToShopDto(shopRepository.findById(idShop).get());
+            return shopRepository.findById(idShop).get();
         } else {
             throw new NotFoundException("Shop with ID #" + idShop + " is not found");
         }
     }
 
     @Override
-    public List<ShopDto> getAllShops() {
-        List<ShopDto> ListShopDto = new ArrayList<>();
-        shopRepository.findAll().forEach(shop -> ListShopDto.add(convertShopToShopDto(shop)));
-        return ListShopDto;
+    public List<Shop> getAllShops() {
+        return (List<Shop>) shopRepository.findAll();
     }
 }

@@ -1,6 +1,5 @@
 package com.zdotavv.enterprise_homework6.service;
 
-import com.zdotavv.enterprise_homework6.dto.ProductDto;
 import com.zdotavv.enterprise_homework6.exceptions.NotFoundException;
 import com.zdotavv.enterprise_homework6.model.Product;
 import com.zdotavv.enterprise_homework6.repository.ProductRepository;
@@ -8,12 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductDtoToProduct;
-import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductToProductDto;
-import static com.zdotavv.enterprise_homework6.converters.ShopConverter.convertShopDtoToShop;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -29,35 +25,35 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto createProduct(ProductDto productDto) throws NotFoundException {
-        Product product = new Product(productDto.getName(),productDto.getPrice());
-        product.setShop(convertShopDtoToShop(shopService.getShopById(productDto.getIdShop())));
-        shopService.getShopById(productDto.getIdShop()).getProducts().add(product);
+    public Product createProduct(String name, Double price, Long idShop) throws NotFoundException {
+        Product product = new Product(name,price);
+        product.setShop(shopService.getShopById(idShop));
+        shopService.getShopById(idShop).getProducts().add(product);
         productRepository.save(product);
-        return convertProductToProductDto(product);
+        return product;
     }
 
 
     @Override
-    public ProductDto updateProduct(ProductDto productDto){
-        return productRepository.findById(productDto.getIdProduct())
+    public Product updateProduct(Long idProduct,String name, Double price, Long idShop){
+        return productRepository.findById(idProduct)
                 .map(entity -> {
-                    entity.setName(productDto.getName());
-                    entity.setPrice(productDto.getPrice());
+                    entity.setName(name);
+                    entity.setPrice(price);
                     try {
-                        entity.setShop(convertShopDtoToShop(shopService.getShopById(productDto.getIdShop())));
+                        entity.setShop(shopService.getShopById(idShop));
                     } catch (NotFoundException e) {
                         throw new RuntimeException(e);
                     }
-                    return convertProductToProductDto(productRepository.save(entity));
+                    return productRepository.save(entity);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + productDto.getIdProduct()));
+                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + idProduct));
     }
 
     @Override
     public void deleteProduct(Long idProduct) throws NotFoundException {
         if (productRepository.existsById(idProduct)) {
-            shopService.getShopById((productRepository.findById(idProduct).get()).getShop().getIdShop()).getProducts().remove(convertProductDtoToProduct(getById(idProduct)));
+            shopService.getShopById((productRepository.findById(idProduct).get()).getShop().getIdShop()).getProducts().remove(getById(idProduct));
             productRepository.deleteById(idProduct);
         } else {
             throw new NotFoundException("Product with ID #" + idProduct + " is not found");
@@ -65,19 +61,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto getById(Long idProduct) throws NotFoundException  {
+    public Product getById(Long idProduct) throws NotFoundException  {
         if (productRepository.findById(idProduct).isPresent()) {
-            return convertProductToProductDto(productRepository.findById(idProduct).get());
+            return productRepository.findById(idProduct).get();
         } else {
             throw new NotFoundException("Product with ID #" + idProduct + " is not found");
         }
     }
 
     @Override
-    public List<ProductDto> getAllProducts() {
-        List<ProductDto> productDtoList = new ArrayList<>();
-        productRepository.findAll().forEach(product -> productDtoList.add(convertProductToProductDto(product)));
-        return productDtoList;
+    public List<Product> getAllProducts() {
+        return (List<Product>) productRepository.findAll();
     }
 
 }

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductDtoToProduct;
+import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductToProductDto;
+
 @Controller
 @RequestMapping(path="/product")
 public class ProductController {
@@ -34,10 +37,9 @@ public class ProductController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createProduct(@ModelAttribute("product") ProductDto productDto) throws NotFoundException {
-        productService.createProduct(productDto);
+        productService.createProduct(productDto.getName(),productDto.getPrice(),productDto.getIdShop());
         return "createProductSuccess";
     }
-
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public String getProductByIdView(Model model) {
         model.addAttribute("productById", new ProductDto());
@@ -46,7 +48,7 @@ public class ProductController {
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public String getProductById(@ModelAttribute("productById") ProductDto productDto, Model model) throws NotFoundException {
-        ProductDto productById = productService.getById(productDto.getIdProduct());
+        ProductDto productById = convertProductToProductDto(productService.getById(productDto.getIdProduct()));
         model.addAttribute("productById", productById);
         return "getProductSuccess";
     }
@@ -59,7 +61,7 @@ public class ProductController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateProduct(@ModelAttribute("product") ProductDto productDto) {
-        productService.updateProduct(productDto);
+        productService.updateProduct(productDto.getIdProduct(),productDto.getName(),productDto.getPrice(),productDto.getIdShop());
         return "updateProductSuccess";
     }
 

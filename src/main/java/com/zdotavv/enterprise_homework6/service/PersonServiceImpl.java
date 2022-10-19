@@ -1,16 +1,12 @@
 package com.zdotavv.enterprise_homework6.service;
 
-import com.zdotavv.enterprise_homework6.repository.PersonRepository;
-import com.zdotavv.enterprise_homework6.dto.PersonDto;
 import com.zdotavv.enterprise_homework6.exceptions.NotFoundException;
+import com.zdotavv.enterprise_homework6.model.Person;
+import com.zdotavv.enterprise_homework6.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.zdotavv.enterprise_homework6.converters.PersonConverter.convertPersonDtoToPerson;
-import static com.zdotavv.enterprise_homework6.converters.PersonConverter.convertPersonToPersonDto;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -22,14 +18,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto createPerson(PersonDto personDto) {
-        return convertPersonToPersonDto(personRepository.save(convertPersonDtoToPerson(personDto)));
+    public Person createPerson(Person person) {
+        return personRepository.save(person);
     }
 
     @Override
-    public PersonDto getPersonById(Long idPerson) throws NotFoundException {
+    public Person getPersonById(Long idPerson) throws NotFoundException {
         if (personRepository.findById(idPerson).isPresent()) {
-            return convertPersonToPersonDto(personRepository.findById(idPerson).get());
+            return personRepository.findById(idPerson).get();
         } else {
             throw new NotFoundException("Person with ID #" + idPerson + " is not found");
         }
@@ -47,22 +43,20 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto updatePerson(PersonDto personDto) {
-        return personRepository.findById(personDto.getIdPerson())
+    public Person updatePerson(Person person) {
+        return personRepository.findById(person.getIdPerson())
                 .map(entity -> {
-                    entity.setFirstName(personDto.getFirstName());
-                    entity.setLastName(personDto.getLastName());
-                    entity.setEmail(personDto.getEmail());
+                    entity.setFirstName(person.getFirstName());
+                    entity.setLastName(person.getLastName());
+                    entity.setEmail(person.getEmail());
                     personRepository.save(entity);
-                    return convertPersonToPersonDto(entity);
+                    return entity;
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + personDto.getIdPerson()));
+                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + person.getIdPerson()));
     }
 
     @Override
-    public List<PersonDto> getAllPersons() {
-        List<PersonDto> personDtoList = new ArrayList<>();
-        personRepository.findAll().forEach(person -> personDtoList.add(convertPersonToPersonDto(person)));
-        return personDtoList;
+    public List<Person> getAllPersons() {
+        return (List<Person>) personRepository.findAll();
     }
 }

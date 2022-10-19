@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import static com.zdotavv.enterprise_homework6.converters.ShopConverter.convertShopDtoToShop;
+import static com.zdotavv.enterprise_homework6.converters.ShopConverter.convertShopToShopDto;
+
 @Controller
 @RequestMapping(path="/shop")
 public class ShopController {
@@ -35,7 +38,7 @@ public class ShopController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createShop(@ModelAttribute("shop") ShopDto shopDto) {
-        shopService.createShop(shopDto);
+        shopService.createShop(convertShopDtoToShop(shopDto));
         return "createShopSuccess";
     }
     @RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -45,7 +48,7 @@ public class ShopController {
     }
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public String getShopById(@ModelAttribute("shopById") ShopDto shopDto, Model model) throws NotFoundException {
-        ShopDto shopById = shopService.getShopById(shopDto.getIdShop());
+        ShopDto shopById = convertShopToShopDto(shopService.getShopById(shopDto.getIdShop()));
         model.addAttribute("shopById", shopById);
         return "getShopSuccess";
     }

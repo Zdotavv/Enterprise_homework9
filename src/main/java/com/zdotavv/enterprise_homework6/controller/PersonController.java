@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import static com.zdotavv.enterprise_homework6.converters.PersonConverter.convertPersonDtoToPerson;
+import static com.zdotavv.enterprise_homework6.converters.PersonConverter.convertPersonToPersonDto;
+
 @Controller
     @RequestMapping(path="/person")
 
@@ -36,7 +39,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createPerson(@ModelAttribute("person") PersonDto personDto) {
-        personService.createPerson(personDto);
+        personService.createPerson(convertPersonDtoToPerson(personDto));
         return "createPersonSuccess";
     }
 
@@ -49,7 +52,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Transactional
     public String getPersonById(@ModelAttribute("personById") PersonDto personDto, Model model) throws NotFoundException {
-        PersonDto personById = personService.getPersonById(personDto.getIdPerson());
+        PersonDto personById = convertPersonToPersonDto(personService.getPersonById(personDto.getIdPerson()));
         model.addAttribute("personById", personById);
         return "getPersonSuccess";
     }
@@ -63,7 +66,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
     @RequestMapping(value = "/update", method = {RequestMethod.PUT, RequestMethod.POST})
     @Transactional
     public String updatePerson(@ModelAttribute("person") PersonDto personDto) throws NotFoundException {
-        personService.updatePerson(personDto);
+        personService.updatePerson(convertPersonDtoToPerson(personDto));
         return "updatePersonSuccess";
     }
 

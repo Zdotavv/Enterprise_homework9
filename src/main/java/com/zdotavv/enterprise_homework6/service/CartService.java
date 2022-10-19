@@ -1,22 +1,22 @@
 package com.zdotavv.enterprise_homework6.service;
 
-import com.zdotavv.enterprise_homework6.dto.CartDto;
 import com.zdotavv.enterprise_homework6.exceptions.NotFoundException;
+import com.zdotavv.enterprise_homework6.model.Cart;
 
 import java.util.List;
 
 public interface CartService {
-    CartDto createCartByPersonId(Long idPerson) throws NotFoundException;
+    Cart createCartByPersonId(Long idPerson) throws NotFoundException;
 
-    CartDto addProductByProductIdAndCartId(CartDto cartDto) throws NotFoundException;
+    Cart addProductByProductIdAndCartId(Long idCart, Long idProduct) throws NotFoundException;
 
-    CartDto removeProductByProductIdAndCartId(CartDto cartDto) throws NotFoundException;
+    Cart removeProductByProductIdAndCartId(Long idCart, Long idProduct) throws NotFoundException;
 
     void removeAllProductsFromCartById(Long idCart)throws NotFoundException ;
 
-    List<CartDto> getAllCarts();
+    List<Cart> getAllCarts();
 
-    CartDto getCartById(Long idCart) throws NotFoundException;
+    Cart getCartById(Long idCart) throws NotFoundException;
 
     Long removeCartById(Long idCart) throws NotFoundException;
 }
