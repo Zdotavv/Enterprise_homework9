@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductDtoToProduct;
@@ -25,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product createProduct(String name, Double price, Long idShop) throws NotFoundException {
+    public Product createProduct(String name, BigDecimal price, Long idShop) throws NotFoundException {
         Product product = new Product(name,price);
         product.setShop(shopService.getShopById(idShop));
         shopService.getShopById(idShop).getProducts().add(product);
@@ -35,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Product updateProduct(Long idProduct,String name, Double price, Long idShop){
+    public Product updateProduct(Long idProduct,String name, BigDecimal price, Long idShop){
         return productRepository.findById(idProduct)
                 .map(entity -> {
                     entity.setName(name);

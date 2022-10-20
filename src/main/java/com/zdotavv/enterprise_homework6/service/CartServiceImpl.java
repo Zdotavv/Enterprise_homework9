@@ -1,6 +1,5 @@
 package com.zdotavv.enterprise_homework6.service;
 
-import com.zdotavv.enterprise_homework6.converters.PersonConverter;
 import com.zdotavv.enterprise_homework6.exceptions.NotFoundException;
 import com.zdotavv.enterprise_homework6.model.Cart;
 import com.zdotavv.enterprise_homework6.model.Product;
@@ -37,7 +36,8 @@ public class CartServiceImpl implements CartService{
         Product product = productService.getById(idProduct);
         if (cartRepository.findById(idCart).isPresent()) {
             cart.getProducts().add(product);
-            cart.setSum(cart.getSum().add(BigDecimal.valueOf(productService.getById(idProduct).getPrice())));
+            BigDecimal sum = cart.getSum().add(productService.getById(idProduct).getPrice());
+            cart.setSum(sum);
             cartRepository.save(cart);
             return cart;
         } else {
@@ -52,7 +52,9 @@ public class CartServiceImpl implements CartService{
         if (cartRepository.findById(idCart).isPresent()) {
             cart.getProducts().remove(product);
             if (cart.getSum().compareTo(new BigDecimal("0.0")) != 0) {
-                cart.setSum(cart.getSum().add(BigDecimal.valueOf(productService.getById(idProduct).getPrice())));
+                BigDecimal sum = cart.getSum().subtract(productService.getById(idProduct).getPrice());
+                cart.setSum(sum);
+                cartRepository.save(cart);
             } else {
                 cart.setSum(BigDecimal.valueOf(0.0));
             }

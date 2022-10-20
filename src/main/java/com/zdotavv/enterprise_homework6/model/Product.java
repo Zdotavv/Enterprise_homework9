@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
@@ -18,11 +19,11 @@ public class Product {
 
     private String name;
 
-    private Double price;
+    private BigDecimal price;
     @ManyToOne
     private Shop shop;
 
-    public Product(String name, Double price) {
+    public Product(String name, BigDecimal price) {
         this.name = name;
         this.price = price;
     }
