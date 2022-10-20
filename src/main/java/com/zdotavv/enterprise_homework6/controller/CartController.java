@@ -69,7 +69,7 @@ public class CartController {
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public String getAllcarts(Model model) {
+    public String getAllCarts(Model model) {
         model.addAttribute("all", cartService.getAllCarts().stream()
                 .map(CartConverter::convertCartToCartDto).collect(Collectors.toList()));
         return "allCarts";

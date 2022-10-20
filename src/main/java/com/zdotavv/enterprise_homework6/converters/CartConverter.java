@@ -14,13 +14,4 @@ public class CartConverter {
         cartDto.setSum(cart.getSum());
         return cartDto;
     }
-
-    public static Cart convertCartDtoToCart(CartDto cartDto) {
-        Cart cart = new Cart();
-        cart.setIdCart(cartDto.getIdCart());
-        cart.setPerson(cartDto.getPerson());
-        cart.setProducts(cartDto.getProducts());
-        cart.setSum(cartDto.getSum());
-        return cart;
-    }
 }
