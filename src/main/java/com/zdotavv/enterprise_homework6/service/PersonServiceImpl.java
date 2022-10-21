@@ -25,7 +25,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person getPersonById(Long idPerson) throws NotFoundException {
         if (personRepository.findById(idPerson).isPresent()) {
-            return personRepository.findById(idPerson).get();
+            return personRepository.findById(idPerson).orElseThrow(() -> new NotFoundException(idPerson.toString()));
         } else {
             throw new NotFoundException("Person with ID #" + idPerson + " is not found");
         }

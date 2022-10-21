@@ -10,7 +10,6 @@ import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.zdotavv.enterprise_homework6.converters.ProductConverter.convertProductDtoToProduct;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -54,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long idProduct) throws NotFoundException {
         if (productRepository.existsById(idProduct)) {
-            shopService.getShopById((productRepository.findById(idProduct).get()).getShop().getIdShop()).getProducts().remove(getById(idProduct));
+            shopService.getShopById((productRepository.findById(idProduct).orElseThrow(() -> new NotFoundException(idProduct.toString()))).getShop().getIdShop()).getProducts().remove(getById(idProduct));
             productRepository.deleteById(idProduct);
         } else {
             throw new NotFoundException("Product with ID #" + idProduct + " is not found");
@@ -64,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getById(Long idProduct) throws NotFoundException  {
         if (productRepository.findById(idProduct).isPresent()) {
-            return productRepository.findById(idProduct).get();
+            return productRepository.findById(idProduct).orElseThrow(() -> new NotFoundException(idProduct.toString()));
         } else {
             throw new NotFoundException("Product with ID #" + idProduct + " is not found");
         }

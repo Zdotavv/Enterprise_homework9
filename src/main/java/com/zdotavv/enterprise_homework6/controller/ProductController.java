@@ -82,5 +82,6 @@ public class ProductController {
         model.addAttribute("all", productService.getAllProducts());
         return "allProducts";
     }
+
 }
 

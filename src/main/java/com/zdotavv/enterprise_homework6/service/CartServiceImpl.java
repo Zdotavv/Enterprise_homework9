@@ -32,7 +32,7 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Cart addProductByProductIdAndCartId(Long idCart, Long idProduct) throws NotFoundException {
-        Cart cart = cartRepository.findById(idCart).get();
+        Cart cart = cartRepository.findById(idCart).orElseThrow(() -> new NotFoundException(idCart.toString()));
         Product product = productService.getById(idProduct);
         if (cartRepository.findById(idCart).isPresent()) {
             cart.getProducts().add(product);
@@ -47,7 +47,7 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Cart removeProductByProductIdAndCartId(Long idCart, Long idProduct) throws NotFoundException {
-        Cart cart = cartRepository.findById(idCart).get();
+        Cart cart = cartRepository.findById(idCart).orElseThrow(() -> new NotFoundException(idCart.toString()));
         Product product = productService.getById(idProduct);
         if (cartRepository.findById(idCart).isPresent()) {
             cart.getProducts().remove(product);
@@ -68,7 +68,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public void removeAllProductsFromCartById(Long idCart)throws NotFoundException {
             if (cartRepository.findById(idCart).isPresent()) {
-                Cart cart = cartRepository.findById(idCart).get();
+                Cart cart = cartRepository.findById(idCart).orElseThrow(() -> new NotFoundException(idCart.toString()));
                 cart.getProducts().clear();
                 cart.setSum(new BigDecimal("0.00"));
                 cartRepository.save(cart);
@@ -85,7 +85,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public Cart getCartById(Long idCart) throws NotFoundException {
         if (cartRepository.findById(idCart).isPresent()) {
-            return cartRepository.findById(idCart).get();
+            return cartRepository.findById(idCart).orElseThrow(() -> new NotFoundException(idCart.toString()));
         } else {
             throw new NotFoundException("Cart with ID #" + idCart + " is not found");
         }
@@ -94,7 +94,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public Long removeCartById(Long idCart) throws NotFoundException {
         if (cartRepository.findById(idCart).isPresent()) {
-            Cart cart = cartRepository.findById(idCart).get();
+            Cart cart = cartRepository.findById(idCart).orElseThrow(() -> new NotFoundException(idCart.toString()));
             personService.getPersonById(cart.getPerson().getIdPerson()).getCarts().remove(cart);
             cartRepository.deleteById(idCart);
             return idCart;

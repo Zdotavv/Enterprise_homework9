@@ -33,7 +33,7 @@ public class ShopServiceImpl implements ShopService{
     @Override
     public Shop getShopById(Long idShop) throws NotFoundException {
         if (shopRepository.findById(idShop).isPresent()) {
-            return shopRepository.findById(idShop).get();
+            return shopRepository.findById(idShop).orElseThrow(() -> new NotFoundException(idShop.toString()));
         } else {
             throw new NotFoundException("Shop with ID #" + idShop + " is not found");
         }
