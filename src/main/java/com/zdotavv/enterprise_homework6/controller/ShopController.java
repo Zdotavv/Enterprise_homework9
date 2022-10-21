@@ -27,44 +27,44 @@ public class ShopController {
     public String shopIndex(Model model) {
         String message = "Shop start page";
         model.addAttribute("message", message);
-        return "shopIndex";
+        return "/shop/shopIndex";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String createShopView(Model model) {
         model.addAttribute("shop", new ShopDto());
-        return "createShop";
+        return "/shop/createShop";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createShop(@ModelAttribute("shop") ShopDto shopDto) {
         shopService.createShop(convertShopDtoToShop(shopDto));
-        return "createShopSuccess";
+        return "/shop/createShopSuccess";
     }
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public String getShopByIdView(Model model) {
         model.addAttribute("shopById", new ShopDto());
-        return "getShop";
+        return "/shop/getShop";
     }
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public String getShopById(@ModelAttribute("shopById") ShopDto shopDto, Model model) throws NotFoundException {
         ShopDto shopById = convertShopToShopDto(shopService.getShopById(shopDto.getIdShop()));
         model.addAttribute("shopById", shopById);
-        return "getShopSuccess";
+        return "/shop/getShopSuccess";
     }
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteShopByIdView(Model model) {
         model.addAttribute("shop", new ShopDto());
-        return "deleteShop";
+        return "/shop/deleteShop";
     }
     @RequestMapping(value = "/delete", method = {RequestMethod.DELETE, RequestMethod.POST})
     public String deleteShop(@ModelAttribute("shop") ShopDto shopDto) throws NotFoundException {
         shopService.deleteShop(shopDto.getIdShop());
-        return "deleteShopSuccess";
+        return "/shop/deleteShopSuccess";
     }
     @GetMapping( "/all")
     public String getAllShops(Model model) {
         model.addAttribute("all", shopService.getAllShops());
-        return "allShops";
+        return "/shop/allShops";
     }
 }

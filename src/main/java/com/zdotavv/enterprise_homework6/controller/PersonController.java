@@ -28,25 +28,25 @@ import static com.zdotavv.enterprise_homework6.converters.PersonConverter.conver
     public String personIndex(Model model) {
         String message = "Person control page";
         model.addAttribute("message", message);
-        return "personIndex";
+        return "/person/personIndex";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String createPersonView(Model model) {
         model.addAttribute("person", new PersonDto());
-        return "createPerson";
+        return "/person/createPerson";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createPerson(@ModelAttribute("person") PersonDto personDto) {
         personService.createPerson(convertPersonDtoToPerson(personDto));
-        return "createPersonSuccess";
+        return "/person/createPersonSuccess";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public String getPersonByIdView(Model model) {
         model.addAttribute("personById", new PersonDto());
-        return "getPerson";
+        return "/person/getPerson";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
@@ -54,39 +54,39 @@ import static com.zdotavv.enterprise_homework6.converters.PersonConverter.conver
     public String getPersonById(@ModelAttribute("personById") PersonDto personDto, Model model) throws NotFoundException {
         PersonDto personById = convertPersonToPersonDto(personService.getPersonById(personDto.getIdPerson()));
         model.addAttribute("personById", personById);
-        return "getPersonSuccess";
+        return "/person/getPersonSuccess";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String updatePersonView(Model model) {
         model.addAttribute("person", new PersonDto());
-        return "updatePerson";
+        return "/person/updatePerson";
     }
 
     @RequestMapping(value = "/update", method = {RequestMethod.PUT, RequestMethod.POST})
     @Transactional
     public String updatePerson(@ModelAttribute("person") PersonDto personDto) throws NotFoundException {
         personService.updatePerson(convertPersonDtoToPerson(personDto));
-        return "updatePersonSuccess";
+        return "/person/updatePersonSuccess";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deletePersonByIdView(Model model) {
         model.addAttribute("person", new PersonDto());
-        return "deletePerson";
+        return "/person/deletePerson";
     }
 
 
     @RequestMapping(value = "/delete", method = {RequestMethod.DELETE, RequestMethod.POST})
     public String deletePerson(@ModelAttribute("person") PersonDto personDto) throws NotFoundException {
         personService.deletePerson(personDto.getIdPerson());
-        return "deletePersonSuccess";
+        return "/person/deletePersonSuccess";
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getAllPersons(Model model) {
         model.addAttribute("all", personService.getAllPersons());
-        return "allPersons";
+        return "/person/allPersons";
     }
 }
 
