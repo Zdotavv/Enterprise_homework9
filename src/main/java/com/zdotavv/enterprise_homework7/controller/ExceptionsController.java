@@ -10,7 +10,7 @@ public class ExceptionsController implements ErrorController {
     @RequestMapping(PATH)
     @ResponseBody
     public String getErrorPath() {
-        return "Sorry, something went wrong. Try again, be sure that all IDs are real objects IDs";
+        return "Sorry, something went wrong. Try again and use correct data";
     }
 }
 
