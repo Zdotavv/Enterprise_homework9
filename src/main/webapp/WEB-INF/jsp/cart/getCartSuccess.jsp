@@ -11,7 +11,7 @@
 <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
 <h1 align="center">View cart By ID</h1>
 <div align="center">
-    <%--@elvariable id="cartById" type="com.zdotavv.enterprise_homework6.dto.CartDto"--%>
+    <%--@elvariable id="cartById" type="com.zdotavv.enterprise_homework7.dto.CartDto"--%>
         <h2>Cart</h2>
         <span>ID:</span><span>${cartById.idCart}</span><br/>
         <span>Sum:</span><span>${cartById.sum}</span><br/>

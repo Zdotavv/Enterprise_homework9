@@ -15,6 +15,19 @@
 <body>
 <div align="center">
     <h1>${message}</h1>
+
+    <h3><c:choose>
+        <c:when test="${pageContext.request.userPrincipal.name == null}">Welcome! Log in or Register, please:</c:when>
+        <c:otherwise>Welcome, ${pageContext.request.userPrincipal.name}!</c:otherwise>
+    </c:choose></h3>
+    <sec:authorize access="isAuthenticated()">
+        <h4><a href="/logout">Log out</a></h4>
+    </sec:authorize>
+    <sec:authorize access="!isAuthenticated()">
+        <a href="${pageContext.request.contextPath}/login">Log in</a><br>
+        <a href="${pageContext.request.contextPath}/registration">Registration</a>
+    </sec:authorize>
+
     <h2>Main menu:</h2>
     <nav class="menu">
         <ul>

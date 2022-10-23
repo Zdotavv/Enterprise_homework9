@@ -26,7 +26,7 @@
     <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
 <div align="center">
     <h2>View shop by ID</h2>
-    <%--@elvariable id="shopById" type="com.zdotavv.enterprise_homework6.dto.ShopDto"--%>
+    <%--@elvariable id="shopById" type="com.zdotavv.enterprise_homework7.dto.ShopDto"--%>
     <form:form action="get" method="post" modelAttribute="shopById">
         <form:label path="idShop">ID:</form:label>
         <form:input required="required" path="idShop"/><br/>

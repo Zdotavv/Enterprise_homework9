@@ -11,7 +11,7 @@
 <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
 <h1 align="center">View shop By ID</h1>
 <div align="center">
-    <%--@elvariable id="shopById" type="com.zdotavv.enterprise_homework6.dto.ShopDto"--%>
+    <%--@elvariable id="shopById" type="com.zdotavv.enterprise_homework7.dto.ShopDto"--%>
     <table>
         <tr>
             <td>ID: </td>

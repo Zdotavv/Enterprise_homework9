@@ -26,7 +26,7 @@
     <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
 <div align="center">
     <h2>Delete product</h2>
-    <%--@elvariable id="product" type="com.zdotavv.enterprise_homework6.dto.ProductDto"--%>
+    <%--@elvariable id="product" type="com.zdotavv.enterprise_homework7.dto.ProductDto"--%>
     <form:form action="delete" method="delete" modelAttribute="product">
         <form:label path="idProduct">ID:</form:label>
         <form:input required="required" path="idProduct"/><br/>
