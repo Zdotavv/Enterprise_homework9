@@ -1,6 +1,5 @@
-[![Java CI with Maven](https://github.com/Zdotavv/Enterprise_homework7/actions/workflows/maven.yml/badge.svg)](https://github.com/Zdotavv/Enterprise_homework7/actions/workflows/maven.yml)
-
-# homework7
+[![Java CI with Maven](https://github.com/Zdotavv/Enterprise_homework9/actions/workflows/maven.yml/badge.svg)](https://github.com/Zdotavv/Enterprise_homework9/actions/workflows/maven.yml)
+# homework9
 
 http://localhost:8080
 
