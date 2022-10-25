@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.zdotavv</groupId>
-    <artifactId>Enterprise_homework7</artifactId>
+    <artifactId>Enterprise_homework9</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Enterprise_homework7</name>
-    <description>Enterprise_homework7</description>
+    <name>Enterprise_homework9</name>
+    <description>Enterprise_homework9</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -42,7 +42,11 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
