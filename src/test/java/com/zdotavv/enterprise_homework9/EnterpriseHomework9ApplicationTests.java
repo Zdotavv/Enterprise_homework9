@@ -1,10 +1,10 @@
-package com.zdotavv.enterprise_homework7;
+package com.zdotavv.enterprise_homework9;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EnterpriseHomework6ApplicationTests {
+class EnterpriseHomework9ApplicationTests {
 
     @Test
     void contextLoads() {
