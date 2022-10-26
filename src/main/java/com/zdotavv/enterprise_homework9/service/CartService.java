@@ -18,5 +18,5 @@ public interface CartService {
 
     Cart getCartById(Long idCart) throws NotFoundException;
 
-    Long removeCartById(Long idCart) throws NotFoundException;
+    void removeCartById(Long idCart) throws NotFoundException;
 }

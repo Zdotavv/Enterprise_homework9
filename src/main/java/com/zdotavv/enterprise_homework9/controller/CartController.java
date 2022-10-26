@@ -45,9 +45,7 @@ public class CartController {
     }
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createCart(@ModelAttribute("person") PersonDto personDto) throws NotFoundException {
-        log.debug("createCart() Controller - start: idPerson = {}",personDto.getIdPerson());
         cartService.createCartByPersonId(personDto.getIdPerson());
-        log.debug("createCart() Controller - end: idPerson = {}",personDto.getIdPerson());
         log.info("New cart for person with ID [{}] is created", personDto.getIdPerson());
         return "/cart/createCartSuccess";
     }

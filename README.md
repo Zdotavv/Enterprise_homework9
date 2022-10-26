@@ -4,9 +4,9 @@
 http://localhost:8080
 
 (ADMIN)
-username: admin  
-password: 1111 
+username: admin;  
+password: 1111. 
 
 (CUSTOMER)
-username: customer 
-password: 0000 
+username: customer; 
+password: 0000. 

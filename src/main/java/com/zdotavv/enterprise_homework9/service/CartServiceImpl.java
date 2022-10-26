@@ -4,12 +4,14 @@ import com.zdotavv.enterprise_homework9.exceptions.NotFoundException;
 import com.zdotavv.enterprise_homework9.model.Cart;
 import com.zdotavv.enterprise_homework9.model.Product;
 import com.zdotavv.enterprise_homework9.repository.CartRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CartServiceImpl implements CartService{
 
     private final PersonService personService;
@@ -26,7 +28,8 @@ public class CartServiceImpl implements CartService{
     public Cart createCartByPersonId(Long idPerson) throws NotFoundException {
         Cart cart = new Cart(personService.getPersonById(idPerson));
         personService.getPersonById(idPerson).getCarts().add(cart);
-        return cartRepository.save(cart);
+         cartRepository.save(cart);
+        return cart;
     }
 
 
@@ -92,17 +95,13 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public Long removeCartById(Long idCart) throws NotFoundException {
+    public void removeCartById(Long idCart) throws NotFoundException {
         if (cartRepository.findById(idCart).isPresent()) {
             Cart cart = cartRepository.findById(idCart).orElseThrow(() -> new NotFoundException(idCart.toString()));
             personService.getPersonById(cart.getPerson().getIdPerson()).getCarts().remove(cart);
             cartRepository.deleteById(idCart);
-            return idCart;
-        }
-        try {
-            throw new NotFoundException("Cart with ID #" + idCart + " is not found");
-        } catch (NotFoundException e) {
-            throw new IllegalArgumentException(e);
+        } else {
+            throw new NotFoundException("Cart with ID #" + idCart + "is not found");
         }
     }
 
