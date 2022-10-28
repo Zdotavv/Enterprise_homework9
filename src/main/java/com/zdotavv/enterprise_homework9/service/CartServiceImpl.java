@@ -28,7 +28,9 @@ public class CartServiceImpl implements CartService{
     public Cart createCartByPersonId(Long idPerson) throws NotFoundException {
         Cart cart = new Cart(personService.getPersonById(idPerson));
         personService.getPersonById(idPerson).getCarts().add(cart);
+        log.debug("createCartByPersonId() - start: Person id = {}", idPerson);
          cartRepository.save(cart);
+        log.debug("createCartByPersonId() - end: Cart id = {}", cart.getIdCart());
         return cart;
     }
 
@@ -41,7 +43,9 @@ public class CartServiceImpl implements CartService{
             cart.getProducts().add(product);
             BigDecimal sum = cart.getSum().add(productService.getById(idProduct).getPrice());
             cart.setSum(sum);
+            log.debug("addProductByProductIdAndCartId() - start: Cart id={}, Product id = {}", idCart, idProduct);
             cartRepository.save(cart);
+            log.debug("addProductByProductIdAndCartId() - end: Cart id={}, Product id = {}", idCart, idProduct);
             return cart;
         } else {
             throw new NotFoundException("Cart with ID #" + idCart + " is not found");
@@ -53,11 +57,13 @@ public class CartServiceImpl implements CartService{
         Cart cart = cartRepository.findById(idCart).orElseThrow(() -> new NotFoundException(idCart.toString()));
         Product product = productService.getById(idProduct);
         if (cartRepository.findById(idCart).isPresent()) {
+            log.debug("removeProductByProductIdAndCartId() - start: Cart id={}, Product id = {}", idCart, idProduct);
             cart.getProducts().remove(product);
             if (cart.getSum().compareTo(new BigDecimal("0.0")) != 0) {
                 BigDecimal sum = cart.getSum().subtract(productService.getById(idProduct).getPrice());
                 cart.setSum(sum);
                 cartRepository.save(cart);
+                log.debug("removeProductByProductIdAndCartId() - end: Cart id={}, Product id = {}", idCart, idProduct);
             } else {
                 cart.setSum(BigDecimal.valueOf(0.0));
             }
@@ -74,7 +80,9 @@ public class CartServiceImpl implements CartService{
                 Cart cart = cartRepository.findById(idCart).orElseThrow(() -> new NotFoundException(idCart.toString()));
                 cart.getProducts().clear();
                 cart.setSum(new BigDecimal("0.00"));
+                log.debug("removeAllProductsFromCartById() - start: Cart id={}", idCart);
                 cartRepository.save(cart);
+                log.debug("removeAllProductsFromCartById() - end: Cart id={},", idCart);
             } else {
                 throw new NotFoundException("Cart with ID #" + idCart + " is empty");
             }
@@ -98,6 +106,7 @@ public class CartServiceImpl implements CartService{
     public void removeCartById(Long idCart) throws NotFoundException {
         if (cartRepository.findById(idCart).isPresent()) {
             Cart cart = cartRepository.findById(idCart).orElseThrow(() -> new NotFoundException(idCart.toString()));
+            removeAllProductsFromCartById(idCart);
             personService.getPersonById(cart.getPerson().getIdPerson()).getCarts().remove(cart);
             cartRepository.deleteById(idCart);
         } else {

@@ -1,7 +1,5 @@
 package com.zdotavv.enterprise_homework9.controller;
 
-
-
 import com.zdotavv.enterprise_homework9.converters.PersonConverter;
 import com.zdotavv.enterprise_homework9.dto.PersonDto;
 import com.zdotavv.enterprise_homework9.exceptions.NotFoundException;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
+
 
 import java.util.stream.Collectors;
 
